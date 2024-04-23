@@ -34,7 +34,6 @@ func Worker(in <-chan int64, out chan<- int64) {
 	for {
         v, ok := <-in
         if !ok {
-            close(out)
             return
         }
         out <- v
@@ -80,6 +79,7 @@ func main() {
 			for num := range in {
 				amounts[i]++
 				chOut <- num
+			}
 		}(outs[i], i)
 	}
 
